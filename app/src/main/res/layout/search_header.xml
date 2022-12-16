@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/header_height"
+    android:background="@color/primary_color"
+    android:elevation="12dp"
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/btn_left_header"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#00000000"
+        android:src="@drawable/ic_arrow_back" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="12dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_search"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_search"
+            android:transitionName="search_icon"
+            app:tint="@color/text_secondary" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:background="?android:color"
+            android:fontFamily="@font/poppins"
+            android:hint="Search"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:textColor="?android:textColorSecondary"
+            android:textSize="16sp"
+            tools:ignore="NestedWeights" />
+
+        <ImageButton
+            android:layout_width="8dp"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:src="@drawable/ic_close"
+            app:tint="?android:textColorSecondary" />
+
+    </LinearLayout>
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_title"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:layout_marginHorizontal="12dp"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:ellipsize="end"-->
+    <!--        android:fontFamily="@font/poppins_semibold"-->
+    <!--        android:includeFontPadding="false"-->
+    <!--        android:maxLines="1"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textSize="24sp"-->
+    <!--        tools:text="Title" />-->
+
+</LinearLayout>

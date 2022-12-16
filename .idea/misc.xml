@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/bg_emphasize_grad.xml" value="0.159" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/bg_emphasize_grad_top.xml" value="0.159" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/bg_label_wrapper.xml" value="0.159" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/bg_rounded8.xml" value="0.159" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/bg_view_placeholder.xml" value="0.159" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/bg_white_rounded8.xml" value="0.1475" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/featured_wrapper.xml" value="0.159" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/fg_ripple.xml" value="0.159" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/rc_circular_ripple.xml" value="0.159" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/rounded_corner_primary.xml" value="0.159" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/activity_search_movie.xml" value="0.22" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/common_header.xml" value="0.25" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/common_loading.xml" value="0.20416666666666666" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/featured_placeholder.xml" value="0.25" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/genre_discover_movie_item.xml" value="0.25" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/genre_discover_movie_placeholder.xml" value="0.20416666666666666" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/horizontal_movie_list.xml" value="0.25" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/latest_movie_item.xml" value="0.25" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/latest_movie_placeholder.xml" value="0.25" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/refresh_question_modal.xml" value="0.20416666666666666" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/response_modal.xml" value="0.20416666666666666" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/search_header.xml" value="0.25" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/search_movie_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/search_movie_item_placeholder.xml" value="0.20416666666666666" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

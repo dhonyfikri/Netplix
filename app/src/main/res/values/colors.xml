@@ -6,5 +6,21 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="gray_900">#FF222222</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="primary_color">#FF2A95</color>
+    <color name="secondary_color">#FF8107</color>
+    <color name="tertiary">#DDDDF6</color>
+    <color name="alert">#FF5722</color>
+    <color name="success">#3FC144</color>
+    <color name="text_primary">#333333</color>
+    <color name="text_secondary">#676767</color>
+    <color name="view_placeholder">#DDDDDD</color>
+    <color name="disable">#888888</color>
+    <color name="light_gray">#f9f9f9</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
 </resources>
