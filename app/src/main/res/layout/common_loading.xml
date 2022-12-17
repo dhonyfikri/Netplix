@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_illustration"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/poppins_medium"
                 android:maxLines="8"

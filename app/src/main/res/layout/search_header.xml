@@ -35,12 +35,14 @@
             app:tint="@color/text_secondary" />
 
         <EditText
+            android:id="@+id/et_search"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginHorizontal="8dp"
             android:layout_weight="1"
             android:background="?android:color"
+            android:imeOptions="actionSearch"
             android:fontFamily="@font/poppins"
             android:hint="Search"
             android:includeFontPadding="false"
@@ -50,6 +52,7 @@
             tools:ignore="NestedWeights" />
 
         <ImageButton
+            android:id="@+id/ib_clear_searct_text"
             android:layout_width="8dp"
             android:layout_height="match_parent"
             android:background="#00000000"
@@ -57,20 +60,5 @@
             app:tint="?android:textColorSecondary" />
 
     </LinearLayout>
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/tv_title"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="center"-->
-    <!--        android:layout_marginHorizontal="12dp"-->
-    <!--        android:layout_weight="1"-->
-    <!--        android:ellipsize="end"-->
-    <!--        android:fontFamily="@font/poppins_semibold"-->
-    <!--        android:includeFontPadding="false"-->
-    <!--        android:maxLines="1"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        android:textSize="24sp"-->
-    <!--        tools:text="Title" />-->
 
 </LinearLayout>

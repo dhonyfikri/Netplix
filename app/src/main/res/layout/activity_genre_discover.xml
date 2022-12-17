@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:color"
+    android:orientation="vertical"
+    tools:context=".GenreDiscoverActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/common_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/sm_endless_genre_discover_movie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <include layout="@layout/movie_detailed_item_placeholder" />
+
+                    <include layout="@layout/movie_detailed_item_placeholder" />
+
+                    <include layout="@layout/movie_detailed_item_placeholder" />
+
+                    <include layout="@layout/movie_detailed_item_placeholder" />
+
+                    <include layout="@layout/movie_detailed_item_placeholder" />
+
+                    <include layout="@layout/movie_detailed_item_placeholder" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_movie"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp"
+                android:visibility="gone"
+                tools:itemCount="5"
+                tools:listitem="@layout/movie_detailed_item" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

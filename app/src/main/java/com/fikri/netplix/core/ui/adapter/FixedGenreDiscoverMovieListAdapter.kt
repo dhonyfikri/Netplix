@@ -8,18 +8,22 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.fikri.netplix.R
 import com.fikri.netplix.core.data.source.remote.network.Server
 import com.fikri.netplix.core.domain.model.Movie
-import com.fikri.netplix.databinding.LatestMovieItemBinding
+import com.fikri.netplix.databinding.GenreDiscoverMovieItemBinding
 
-class FixedLatestMovieListAdapter(private val listMovie: ArrayList<Movie>) :
-    RecyclerView.Adapter<FixedLatestMovieListAdapter.ListViewHolder>() {
+class FixedGenreDiscoverMovieListAdapter(private val listMovie: ArrayList<Movie>) :
+    RecyclerView.Adapter<FixedGenreDiscoverMovieListAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
-    class ListViewHolder(var binding: LatestMovieItemBinding) :
+    class ListViewHolder(var binding: GenreDiscoverMovieItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding =
-            LatestMovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            GenreDiscoverMovieItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return ListViewHolder(binding)
     }
 

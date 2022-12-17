@@ -4,22 +4,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.fikri.netplix.R
 import com.fikri.netplix.core.data.source.remote.network.Server
 import com.fikri.netplix.core.domain.model.Movie
-import com.fikri.netplix.databinding.LatestMovieItemBinding
+import com.fikri.netplix.databinding.SearchMovieItemBinding
 
-class FixedLatestMovieListAdapter(private val listMovie: ArrayList<Movie>) :
-    RecyclerView.Adapter<FixedLatestMovieListAdapter.ListViewHolder>() {
+class FixedSearchMovieListAdapter(private val listMovie: ArrayList<Movie>) :
+    RecyclerView.Adapter<FixedSearchMovieListAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
-    class ListViewHolder(var binding: LatestMovieItemBinding) :
+    class ListViewHolder(var binding: SearchMovieItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding =
-            LatestMovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            SearchMovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListViewHolder(binding)
     }
 

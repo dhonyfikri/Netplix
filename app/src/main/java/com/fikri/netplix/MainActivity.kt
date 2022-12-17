@@ -9,8 +9,12 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fikri.netplix.core.data.source.Resource
+import com.fikri.netplix.core.domain.model.Genre
 import com.fikri.netplix.core.domain.model.Movie
 import com.fikri.netplix.core.ui.adapter.FixedLatestMovieListAdapter
+import com.fikri.netplix.core.ui.adapter.GenreDiscoverAdapter
+import com.fikri.netplix.core.ui.modal.DetailMovieModal
+import com.fikri.netplix.core.ui.modal.LoadingModal
 import com.fikri.netplix.databinding.ActivityMainBinding
 import com.fikri.netplix.view_model.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,6 +22,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModel()
+
+    private val detailMovieModal = DetailMovieModal(this)
+    private val loadingModal = LoadingModal(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupData() {
         binding.header.tvTitle.text = "Netplix"
+        binding.header.ivSearchIcon.visibility = View.VISIBLE
 
         binding.latestMovieList.apply {
             tvListTitle.text = "Latest"
@@ -37,6 +45,10 @@ class MainActivity : AppCompatActivity() {
             rvHorizontalMovieList.setHasFixedSize(true)
             rvHorizontalMovieList.layoutManager =
                 LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+        }
+        binding.apply {
+            rvGenreDiscoverMovieListParent.setHasFixedSize(true)
+            rvGenreDiscoverMovieListParent.layoutManager = LinearLayoutManager(this@MainActivity)
         }
 
         viewModel.apply {
@@ -51,8 +63,58 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     else -> {
-                        Toast.makeText(this@MainActivity, "Gagal", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MainActivity, "Latest Movie Gagal", Toast.LENGTH_SHORT)
+                            .show()
                     }
+                }
+            }
+
+            listGenre.observe(this@MainActivity) {
+                it.getContentIfNotHandled()?.let { data ->
+                    when (data) {
+                        is Resource.Success -> {
+                            getGenresMembers(data.data as ArrayList<Genre>)
+                        }
+                        else -> {
+                            Toast.makeText(this@MainActivity, "Genre Gagal", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }
+            }
+
+            listGenreWithMember.observe(this@MainActivity) { data ->
+                binding.apply {
+                    smGenreDiscoverMovie.stopShimmer()
+                    smGenreDiscoverMovie.visibility = View.GONE
+                    rlGenreDiscoverMovieListParentWrapper.visibility = View.VISIBLE
+                }
+                setGenreList(data)
+            }
+
+            isShowingLoadingModal.observe(this@MainActivity) {
+                if (it) {
+                    loadingModal.showLoadingModal(message = "Loading")
+                } else {
+                    loadingModal.dismiss()
+                }
+            }
+
+            isShowingDetailMovie.observe(this@MainActivity) {
+                if (it) {
+                    detailMovieModal.showDetailMovieModal(
+                        movieDetail = movieDetail,
+                        movieVideo = movieVideo,
+                        onCloseButtonPressed = {
+                            dismissDetailMovie()
+                        },
+                        onWebsiteButtonPressed = { uri ->
+                            startActivity(
+                                Intent(Intent.ACTION_VIEW, uri)
+                            )
+                        })
+                } else {
+                    detailMovieModal.dismiss()
                 }
             }
         }
@@ -78,7 +140,29 @@ class MainActivity : AppCompatActivity() {
         fixedLatestMovieListAdapter.setOnItemClickCallback(object :
             FixedLatestMovieListAdapter.OnItemClickCallback {
             override fun onClickedItem(data: Movie) {
-                Toast.makeText(this@MainActivity, data.title, Toast.LENGTH_SHORT).show()
+                viewModel.getDetailMoview(data.id ?: 0)
+            }
+        })
+    }
+
+    private fun setGenreList(genreList: ArrayList<Genre>) {
+        val genreDiscoverAdapter = GenreDiscoverAdapter(this@MainActivity, genreList)
+        binding.rvGenreDiscoverMovieListParent.adapter = genreDiscoverAdapter
+
+        genreDiscoverAdapter.setOnSeeMoreClickCallback(object :
+            GenreDiscoverAdapter.OnSeeMoreClickCallback {
+            override fun onClickedSeeMore(data: Genre) {
+                val moveToGenreDiscover =
+                    Intent(this@MainActivity, GenreDiscoverActivity::class.java)
+                moveToGenreDiscover.putExtra(GenreDiscoverActivity.EXTRA_SELECTED_GENRE, data)
+                startActivity(moveToGenreDiscover)
+            }
+        })
+
+        genreDiscoverAdapter.setOnMovieMemberClickCallback(object :
+            GenreDiscoverAdapter.OnMovieMemberClickCallback {
+            override fun onClickedMovieMember(data: Movie) {
+                viewModel.getDetailMoview(data.id ?: 0)
             }
         })
     }
@@ -92,13 +176,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        viewModel.scrollviewPositionY = binding.svMainHome.scrollY
-    }
-
-    override fun onStop() {
-        super.onStop()
         binding.smFeaturedMovie.stopShimmer()
         binding.smLatestMovie.stopShimmer()
         binding.smGenreDiscoverMovie.stopShimmer()
+        viewModel.scrollviewPositionY = binding.svMainHome.scrollY
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        detailMovieModal.dismiss()
+        loadingModal.dismiss()
     }
 }

@@ -8,13 +8,12 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.fikri.netplix.R
 
-class LoadingModal : MyModal() {
+class LoadingModal(private val context: Context) : MyModal() {
     companion object {
         const val TYPE_GENERAL = "general"
     }
 
     fun showLoadingModal(
-        context: Context,
         type: String = TYPE_GENERAL,
         message: String?
     ) {

@@ -13,39 +13,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header">
 
-        <LinearLayout
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sm_movie_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/sm_movie_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <include layout="@layout/search_movie_item_placeholder" />
 
-                <include layout="@layout/search_movie_item_placeholder" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
-            </com.facebook.shimmer.ShimmerFrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movie_search_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:visibility="gone"
+            tools:itemCount="1"
+            tools:listitem="@layout/search_movie_item" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_movie_search_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp"
-                android:visibility="gone"
-                tools:itemCount="1"
-                tools:listitem="@layout/search_movie_item" />
-
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
