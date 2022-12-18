@@ -17,6 +17,6 @@ object AppModule {
     val viewModelModule = module {
         viewModel { MainViewModel(get(), get(), get()) }
         viewModel { SearchMovieViewModel(get(), get()) }
-        viewModel { GenreDiscoverViewModel(get()) }
+        viewModel { GenreDiscoverViewModel(get(), get()) }
     }
 }

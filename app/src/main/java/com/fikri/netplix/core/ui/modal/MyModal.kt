@@ -15,7 +15,7 @@ open class MyModal {
         }
     }
 
-    fun dismiss() {
+    open fun dismiss() {
         if (modal != null && modal!!.isShowing) {
             modal?.dismiss()
         }

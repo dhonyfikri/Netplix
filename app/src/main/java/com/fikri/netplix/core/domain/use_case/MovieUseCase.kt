@@ -7,6 +7,7 @@ import com.fikri.netplix.core.domain.model.Movie
 import com.fikri.netplix.core.domain.model.MovieDetail
 
 interface MovieUseCase {
+    suspend fun getPopularMovieList(apiKey: String): Resource<Movie>
     suspend fun getLatestMovieList(apiKey: String): Resource<Movie>
     suspend fun getLimitedMovieListByGenre(apiKey: String, genreId: String): Resource<Movie>
     suspend fun getDetailMovie(apiKey: String, movieId: Int): Resource<MovieDetail>

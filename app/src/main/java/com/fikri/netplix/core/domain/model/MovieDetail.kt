@@ -15,7 +15,7 @@ data class MovieDetail(
     var posterPath: String? = null,
     var productionCompanies: ArrayList<ProductionCompanies> = arrayListOf(),
     var releaseDate: String? = null,
-    var revenue: Int? = null,
+    var revenue: Long? = null,
     var runtime: Int? = null,
     var status: String? = null,
     var tagline: String? = null,

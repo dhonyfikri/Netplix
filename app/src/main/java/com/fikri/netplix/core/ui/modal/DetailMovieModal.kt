@@ -22,6 +22,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 class DetailMovieModal(private val context: Context) :
     MyModal() {
+
     fun showDetailMovieModal(
         movieDetail: MovieDetail? = null,
         movieVideo: MovieVideo? = null,
@@ -30,6 +31,7 @@ class DetailMovieModal(private val context: Context) :
     ) {
         modal = Dialog(context, android.R.style.Theme_Material_Light_NoActionBar)
         modal?.setContentView(R.layout.movie_detail_modal)
+
         val ytTrailer = modal?.findViewById<YouTubePlayerView>(R.id.yt_trailer)
         val ibCloseModal = modal?.findViewById<ImageButton>(R.id.ib_close_modal)
         val ivBackdrop = modal?.findViewById<ImageView>(R.id.iv_backdrop)
@@ -50,14 +52,15 @@ class DetailMovieModal(private val context: Context) :
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         ibCloseModal?.setOnClickListener {
+            ytTrailer?.release()
             onCloseButtonPressed?.invoke()
         }
 
         movieVideo?.let {
-            ytTrailer?.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
+            ytTrailer?.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                 override fun onReady(youTubePlayer: YouTubePlayer) {
                     super.onReady(youTubePlayer)
-                    youTubePlayer.cueVideo( it.key ?: "Unknown Key", 0f)
+                    youTubePlayer.cueVideo(it.key ?: "Unknown Key", 0f)
                 }
             })
         }

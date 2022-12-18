@@ -1,6 +1,5 @@
 package com.fikri.netplix.view_model
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,6 +23,8 @@ class MainViewModel(
     private val genreUseCase: GenreUseCase,
     private val videoUseCase: VideoUseCase
 ) : ViewModel() {
+    private val _listPopularMovie = MutableLiveData<Resource<Movie>>()
+    val listPopularMovie: LiveData<Resource<Movie>> = _listPopularMovie
     private val _listLatestMovie = MutableLiveData<Resource<Movie>>()
     val listLatestMovie: LiveData<Resource<Movie>> = _listLatestMovie
     private val _listGenre = MutableLiveData<Event<Resource<Genre>>>()
@@ -41,11 +42,27 @@ class MainViewModel(
     var scrollviewPositionY = 0
 
     init {
+        getInitialData()
+    }
+
+    fun getInitialData() {
+        getPopularMovieList()
         getLatestMovieList()
         getAllGenre()
     }
 
-    fun getLatestMovieList() {
+    private fun getPopularMovieList() {
+        _listPopularMovie.value = Resource.Loading()
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val result = movieUseCase.getPopularMovieList(Token.TMDB_TOKEN_V3)
+                _listPopularMovie.postValue(result)
+            }
+        }
+    }
+
+    private fun getLatestMovieList() {
+        _listLatestMovie.value = Resource.Loading()
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val result = movieUseCase.getLatestMovieList(Token.TMDB_TOKEN_V3)
@@ -54,7 +71,8 @@ class MainViewModel(
         }
     }
 
-    fun getAllGenre() {
+    private fun getAllGenre() {
+        _listGenre.value = Event(Resource.Loading())
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val result = genreUseCase.getAllGenre(Token.TMDB_TOKEN_V3)
@@ -66,8 +84,6 @@ class MainViewModel(
     fun getGenresMembers(listGenre: ArrayList<Genre>) {
         val tempListGenreWithMember = listGenre
         listGenre.mapIndexed { index, it ->
-
-            Log.d("idnya", it.id.toString())
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
                     val result = movieUseCase.getLimitedMovieListByGenre(
@@ -83,7 +99,7 @@ class MainViewModel(
         }
     }
 
-    fun getDetailMoview(movieId: Int) {
+    fun getDetailMovie(movieId: Int) {
         _isShowingLoadingModal.value = true
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -92,7 +108,7 @@ class MainViewModel(
 
                 if (movieDetailResult is Resource.Success && movieVideoResult is Resource.Success) {
                     movieDetail = movieDetailResult.data[0]
-                    if (movieDetailResult.data.isNotEmpty()) {
+                    if (movieVideoResult.data.isNotEmpty()) {
                         movieVideo = movieVideoResult.data[0]
                     }
                     _isShowingDetailMovie.postValue(true)

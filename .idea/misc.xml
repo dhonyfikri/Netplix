@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable-v24/ic_star.xml" value="0.1425" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/bg_active_carousel_indicator_item.xml" value="0.138" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/bg_carousel_indicator_item.xml" value="0.138" />
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/bg_emphasize_grad.xml" value="0.159" />
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/bg_emphasize_grad_top.xml" value="0.159" />
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/bg_label_wrapper.xml" value="0.159" />
@@ -15,12 +17,16 @@
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/progress_spin_bg.xml" value="0.138" />
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/rc_circular_ripple.xml" value="0.159" />
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/rounded_corner_primary.xml" value="0.159" />
-        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/activity_genre_discover.xml" value="0.20416666666666666" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/drawable/rounded_corner_secondary.xml" value="0.138" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/activity_genre_discover.xml" value="0.22" />
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/activity_search_movie.xml" value="0.22" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/carousel_indicator_item.xml" value="0.33" />
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/common_header.xml" value="0.25" />
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/common_loading.xml" value="0.20416666666666666" />
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/company_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/featured_movie_item.xml" value="0.33" />
+        <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/featured_movie_item_placeholder.xml" value="0.33" />
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/featured_placeholder.xml" value="0.25" />
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/genre_discover_movie_item.xml" value="0.25" />
         <entry key="..\:/kerja/Xsis Mitra Utama/android_test/app/src/main/res/layout/genre_discover_movie_placeholder.xml" value="0.20416666666666666" />

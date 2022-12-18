@@ -17,6 +17,44 @@ import java.io.IOException
 
 @Suppress("BlockingMethodInNonBlockingContext")
 class RemoteDataSource(private val apiService: ApiService) {
+    suspend fun getPopularMovieList(apiKey: String): ApiResultWrapper<MovieListResponse> {
+        val apiRequest = apiService.getPopularMovie(apiKey = apiKey)
+
+        try {
+            val response: Response<MovieListResponse> = apiRequest.awaitResponse()
+            if (response.isSuccessful) {
+                val responseBody = response.body()
+                return if (responseBody != null) {
+                    ApiResultWrapper.Success(responseBody, "Success get data")
+                } else {
+                    ApiResultWrapper.Error(
+                        response.code(),
+                        ResponseModal.TYPE_FAILED,
+                        "Broken Data"
+                    )
+                }
+            } else {
+                var errorMessage: String? = null
+                try {
+                    val jObjError = JSONObject(response.errorBody()!!.string())
+                    errorMessage = jObjError.getString("message")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+                return ApiResultWrapper.Error(
+                    response.code(),
+                    ResponseModal.TYPE_MISTAKE,
+                    "${response.message()} | $errorMessage"
+                )
+            }
+        } catch (e: IOException) {
+            return ApiResultWrapper.NetworkError(
+                ResponseModal.TYPE_ERROR,
+                "Connection Failed"
+            )
+        }
+    }
+
     suspend fun getLatestMovieList(apiKey: String): ApiResultWrapper<MovieListResponse> {
         val apiRequest = apiService.getListMovie(apiKey = apiKey)
 

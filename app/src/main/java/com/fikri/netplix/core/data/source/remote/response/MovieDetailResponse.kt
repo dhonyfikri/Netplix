@@ -17,7 +17,7 @@ data class MovieDetailResponse(
     @SerializedName("poster_path") var posterPath: String? = null,
     @SerializedName("production_companies") var productionCompanies: ArrayList<ProductionCompaniesResponse> = arrayListOf(),
     @SerializedName("release_date") var releaseDate: String? = null,
-    @SerializedName("revenue") var revenue: Int? = null,
+    @SerializedName("revenue") var revenue: Long? = null,
     @SerializedName("runtime") var runtime: Int? = null,
     @SerializedName("status") var status: String? = null,
     @SerializedName("tagline") var tagline: String? = null,

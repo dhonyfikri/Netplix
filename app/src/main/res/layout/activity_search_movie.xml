@@ -25,7 +25,8 @@
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/sm_movie_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
             <include layout="@layout/search_movie_item_placeholder" />
 
@@ -36,8 +37,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="8dp"
-            android:visibility="gone"
-            tools:itemCount="1"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:itemCount="8"
             tools:listitem="@layout/search_movie_item" />
 
     </LinearLayout>

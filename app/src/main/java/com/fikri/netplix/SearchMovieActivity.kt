@@ -83,6 +83,7 @@ class SearchMovieActivity : AppCompatActivity() {
                 } else {
                     detailMovieModal.dismiss()
                 }
+                movieVideo = null
             }
         }
     }

@@ -28,6 +28,13 @@ interface ApiService {
         @Query("with_watch_monetization_types") withWatchMonetizationTypes: String = "flatrate",
     ): Call<MovieListResponse>
 
+    @GET("movie/popular")
+    fun getPopularMovie(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String = "en-US",
+        @Query("page") page: Int = 1,
+    ): Call<MovieListResponse>
+
     @GET("search/movie")
     fun searchMovie(
         @Query("api_key") apiKey: String,
@@ -55,22 +62,6 @@ interface ApiService {
         @Query("api_key") apiKey: String,
         @Query("language") language: String = "en-US",
     ): Call<MovieDetailResponse>
-
-//    @GET("movie/{movie_id}/reviews")
-//    fun getListReview(
-//        @Path("movie_id") movieId: Int,
-//        @Query("api_key") apiKey: String,
-//        @Query("language") language: String = "en-US",
-//        @Query("page") page: Int = 1,
-//    ): Call<ReviewListResponse>
-//
-//    @GET("movie/{movie_id}/reviews")
-//    suspend fun getEndlessListReview(
-//        @Path("movie_id") movieId: Int,
-//        @Query("api_key") apiKey: String,
-//        @Query("language") language: String = "en-US",
-//        @Query("page") page: Int = 1,
-//    ): ReviewListResponse
 
     @GET("movie/{movie_id}/videos")
     fun getMovieVideo(

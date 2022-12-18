@@ -1,7 +1,7 @@
 package com.fikri.netplix.core.ui.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -10,9 +10,10 @@ import com.bumptech.glide.Glide
 import com.fikri.netplix.R
 import com.fikri.netplix.core.data.source.remote.network.Server
 import com.fikri.netplix.core.domain.model.Movie
+import com.fikri.netplix.core.helper.DimensManipulation.dpToPx
 import com.fikri.netplix.databinding.MovieDetailedItemBinding
 
-class EndlessMovieListAdapter() :
+class EndlessMovieListAdapter(private val context: Context) :
     PagingDataAdapter<Movie, EndlessMovieListAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -38,8 +39,10 @@ class EndlessMovieListAdapter() :
     class ListViewHolder(var binding: MovieDetailedItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
+            context: Context,
+            pos: Int,
             movie: Movie,
-            onClicked: ((value: Movie, view: View) -> Unit)? = null
+            onClicked: ((value: Movie) -> Unit)? = null
         ) {
             binding.apply {
                 Glide.with(itemView.context)
@@ -51,10 +54,21 @@ class EndlessMovieListAdapter() :
                 tvReleaseDate.text = "Release on ${movie.releaseDate}"
                 tvRating.text = "${movie.voteAverage} ( ${movie.voteCount} of vote )"
                 cvMovieItem.setOnClickListener {
-                    onClicked?.invoke(
-                        movie, ivPoster
-                    )
+                    onClicked?.invoke(movie)
                 }
+
+                val params = cvMovieItem.layoutParams as RecyclerView.LayoutParams
+                params.setMargins(
+                    params.leftMargin,
+                    if (pos == 0) {
+                        dpToPx(context, 12f).toInt()
+                    } else {
+                        dpToPx(context, 4f).toInt()
+                    },
+                    params.rightMargin,
+                    params.bottomMargin
+                )
+                cvMovieItem.layoutParams = params
             }
         }
     }
@@ -68,8 +82,8 @@ class EndlessMovieListAdapter() :
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val movie = getItem(position)
         if (movie != null) {
-            holder.bind(movie, onClicked = { value, view ->
-                onItemClickCallback.onClickedItem(value, view)
+            holder.bind(context, position, movie, onClicked = { value ->
+                onItemClickCallback.onClickedItem(value)
             })
         }
     }
@@ -79,6 +93,6 @@ class EndlessMovieListAdapter() :
     }
 
     interface OnItemClickCallback {
-        fun onClickedItem(data: Movie, posterView: View)
+        fun onClickedItem(data: Movie)
     }
 }
