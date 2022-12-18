@@ -13,10 +13,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,12 +24,28 @@
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/sm_movie_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:visibility="gone">
 
             <include layout="@layout/search_movie_item_placeholder" />
 
         </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <TextView
+            android:id="@+id/tv_movie_search_list_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textAlignment="center"
+            android:textColor="?android:textColorSecondary"
+            android:textSize="20sp"
+            android:visibility="gone"
+            tools:text="List Message" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movie_search_list"
@@ -43,6 +58,6 @@
             tools:itemCount="8"
             tools:listitem="@layout/search_movie_item" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,7 @@ class LoadingModal(private val context: Context) : MyModal() {
         type: String = TYPE_GENERAL,
         message: String?
     ) {
+        dismiss()
         modal = Dialog(context)
         modal?.setContentView(R.layout.common_loading)
         val ivIllustration = modal?.findViewById<ImageView>(R.id.iv_illustration)

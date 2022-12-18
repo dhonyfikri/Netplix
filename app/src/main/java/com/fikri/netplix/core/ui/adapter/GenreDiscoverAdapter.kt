@@ -2,6 +2,7 @@ package com.fikri.netplix.core.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -41,6 +42,17 @@ class GenreDiscoverAdapter(private val context: Context, private val listGenre: 
                 val fixedGenreDiscoverMovieListAdapter =
                     FixedGenreDiscoverMovieListAdapter(genre.member)
                 rvHorizontalMovieList.adapter = fixedGenreDiscoverMovieListAdapter
+
+                if (genre.member.isNotEmpty()) {
+                    rvHorizontalMovieList.visibility = View.VISIBLE
+                    tvHorizontalMovieListMessage.visibility = View.GONE
+                } else {
+                    rvHorizontalMovieList.visibility = View.GONE
+                    tvHorizontalMovieListMessage.visibility =
+                        View.VISIBLE
+                    tvHorizontalMovieListMessage.text =
+                        "No data available"
+                }
 
                 btnMoreMovie.setOnClickListener {
                     onSeeMoreClickCallback.onClickedSeeMore(listGenre[position])

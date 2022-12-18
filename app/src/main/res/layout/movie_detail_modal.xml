@@ -223,9 +223,10 @@
                         android:id="@+id/rv_genre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
                         android:paddingVertical="4dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:itemCount="1"
+                        tools:itemCount="6"
                         tools:listitem="@layout/genre_item_outlined" />
 
                     <TextView
@@ -239,14 +240,26 @@
                         android:textColor="?android:textColorPrimary"
                         android:textSize="18sp" />
 
+                    <TextView
+                        android:id="@+id/tv_companies_list_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="14sp"
+                        android:visibility="visible"
+                        tools:text="List Message" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_companies"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
                         android:paddingVertical="4dp"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:itemCount="1"
+                        tools:itemCount="6"
                         tools:listitem="@layout/company_item" />
 
                     <TextView

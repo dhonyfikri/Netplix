@@ -10,17 +10,19 @@ import com.fikri.netplix.core.domain.model.Movie
 import com.fikri.netplix.core.ui.adapter.FixedSearchMovieListAdapter
 import com.fikri.netplix.core.ui.modal.DetailMovieModal
 import com.fikri.netplix.core.ui.modal.LoadingModal
+import com.fikri.netplix.core.ui.modal.RefreshModal
 import com.fikri.netplix.core.utils.KeyboardUtils.hideKeyboard
 import com.fikri.netplix.databinding.ActivitySearchMovieBinding
 import com.fikri.netplix.view_model.SearchMovieViewModel
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchMovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchMovieBinding
-    private val viewModel: SearchMovieViewModel by inject()
+    private val viewModel: SearchMovieViewModel by viewModel()
 
     private val detailMovieModal = DetailMovieModal(this)
     private val loadingModal = LoadingModal(this)
+    private val refreshModal = RefreshModal(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,35 +40,61 @@ class SearchMovieActivity : AppCompatActivity() {
                 GridLayoutManager(this@SearchMovieActivity, 2, GridLayoutManager.VERTICAL, false)
         }
 
-        viewModel.isShowingShimmer.observe(this) {
-            if (it) {
-                binding.apply {
-                    smMovieSearch.startShimmer()
-                    smMovieSearch.visibility = View.VISIBLE
-                    rvMovieSearchList.visibility = View.GONE
-                }
-            } else {
-                binding.apply {
-                    smMovieSearch.stopShimmer()
-                    smMovieSearch.visibility = View.GONE
-                    rvMovieSearchList.visibility = View.VISIBLE
-                }
-            }
-        }
-
-        viewModel.listMovieSearchResult.observe(this) {
-            setSearchMovieList(it)
-        }
-
-        viewModel.isShowingLoadingModal.observe(this@SearchMovieActivity) {
-            if (it) {
-                loadingModal.showLoadingModal(message = "Loading")
-            } else {
-                loadingModal.dismiss()
-            }
-        }
-
         viewModel.apply {
+            isShowingShimmer.observe(this@SearchMovieActivity) {
+                if (it) {
+                    binding.apply {
+                        smMovieSearch.startShimmer()
+                        smMovieSearch.visibility = View.VISIBLE
+                        rvMovieSearchList.visibility = View.GONE
+                        tvMovieSearchListMessage.visibility = View.GONE
+                    }
+                } else {
+                    binding.apply {
+                        smMovieSearch.stopShimmer()
+                        smMovieSearch.visibility = View.GONE
+                        rvMovieSearchList.visibility = View.VISIBLE
+                        tvMovieSearchListMessage.visibility = View.GONE
+                    }
+                }
+            }
+
+            listMovieSearchResult.observe(this@SearchMovieActivity) {
+                setSearchMovieList(it)
+                if (it.isNotEmpty()) {
+                    binding.rvMovieSearchList.visibility = View.VISIBLE
+                    binding.tvMovieSearchListMessage.visibility = View.GONE
+                } else {
+                    binding.rvMovieSearchList.visibility = View.GONE
+                    binding.tvMovieSearchListMessage.visibility = View.VISIBLE
+                    binding.tvMovieSearchListMessage.text = "No data available"
+                }
+            }
+
+            isShowingLoadingModal.observe(this@SearchMovieActivity) {
+                if (it) {
+                    loadingModal.showLoadingModal(message = "Loading")
+                } else {
+                    loadingModal.dismiss()
+                }
+            }
+
+            isShowingRefreshModal.observe(this@SearchMovieActivity) {
+                if (it) {
+                    refreshModal.showRefreshModal(
+                        type = RefreshModal.TYPE_FAILED,
+                        message = "Failed to contact the server",
+                        onRefreshClicked = {
+                            dismissRefreshModal()
+                            getDetailMovieTryAgain()
+                        },
+                        onCloseClicked = { dismissRefreshModal() }
+                    )
+                } else {
+                    refreshModal.dismiss()
+                }
+            }
+
             isShowingDetailMovie.observe(this@SearchMovieActivity) {
                 if (it) {
                     detailMovieModal.showDetailMovieModal(
@@ -83,7 +111,6 @@ class SearchMovieActivity : AppCompatActivity() {
                 } else {
                     detailMovieModal.dismiss()
                 }
-                movieVideo = null
             }
         }
     }
@@ -128,5 +155,6 @@ class SearchMovieActivity : AppCompatActivity() {
         super.onDestroy()
         detailMovieModal.dismiss()
         loadingModal.dismiss()
+        refreshModal.dismiss()
     }
 }

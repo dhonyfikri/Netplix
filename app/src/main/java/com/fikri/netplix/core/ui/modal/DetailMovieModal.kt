@@ -3,6 +3,7 @@ package com.fikri.netplix.core.ui.modal
 import android.app.Dialog
 import android.content.Context
 import android.net.Uri
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -29,6 +30,7 @@ class DetailMovieModal(private val context: Context) :
         onCloseButtonPressed: (() -> Unit)? = null,
         onWebsiteButtonPressed: ((link: Uri) -> Unit)? = null
     ) {
+        dismiss()
         modal = Dialog(context, android.R.style.Theme_Material_Light_NoActionBar)
         modal?.setContentView(R.layout.movie_detail_modal)
 
@@ -43,6 +45,7 @@ class DetailMovieModal(private val context: Context) :
         val btnWebsite = modal?.findViewById<Button>(R.id.btn_website)
         val rvGenre = modal?.findViewById<RecyclerView>(R.id.rv_genre)
         val rvCompanies = modal?.findViewById<RecyclerView>(R.id.rv_companies)
+        val tvCompaniesListMessage = modal?.findViewById<TextView>(R.id.tv_companies_list_message)
         val tvOverview = modal?.findViewById<TextView>(R.id.tv_overview)
 
         rvGenre?.setHasFixedSize(true)
@@ -90,6 +93,15 @@ class DetailMovieModal(private val context: Context) :
             rvGenre?.adapter = genreOfMovieListAdapter
             val companyOfMovieListAdapter = CompanyOfMovieListAdapter(it.productionCompanies)
             rvCompanies?.adapter = companyOfMovieListAdapter
+
+            if (it.productionCompanies.isNotEmpty()) {
+                rvCompanies?.visibility = View.VISIBLE
+                tvCompaniesListMessage?.visibility = View.GONE
+            } else {
+                rvCompanies?.visibility = View.GONE
+                tvCompaniesListMessage?.visibility = View.VISIBLE
+                tvCompaniesListMessage?.text = "No company data"
+            }
 
             btnWebsite?.setOnClickListener { _ ->
                 onWebsiteButtonPressed?.invoke(Uri.parse(it.homepage))

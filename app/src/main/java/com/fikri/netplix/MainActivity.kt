@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
@@ -25,6 +24,7 @@ import com.fikri.netplix.core.ui.adapter.FixedLatestMovieListAdapter
 import com.fikri.netplix.core.ui.adapter.GenreDiscoverAdapter
 import com.fikri.netplix.core.ui.modal.DetailMovieModal
 import com.fikri.netplix.core.ui.modal.LoadingModal
+import com.fikri.netplix.core.ui.modal.RefreshModal
 import com.fikri.netplix.databinding.ActivityMainBinding
 import com.fikri.netplix.view_model.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     private val detailMovieModal = DetailMovieModal(this)
     private val loadingModal = LoadingModal(this)
+    private val refreshModal = RefreshModal(this)
     private lateinit var handler: Handler
     private var featuredMovieListAdapter: FeaturedMovieListAdapter? = null
 
@@ -109,8 +110,10 @@ class MainActivity : AppCompatActivity() {
                             latestMovieList.root.visibility = View.VISIBLE
                             setLatestMovieList(data.data as ArrayList<Movie>)
                             if (data.data.isNotEmpty()) {
+                                latestMovieList.rvHorizontalMovieList.visibility = View.VISIBLE
                                 latestMovieList.tvHorizontalMovieListMessage.visibility = View.GONE
                             } else {
+                                latestMovieList.rvHorizontalMovieList.visibility = View.GONE
                                 latestMovieList.tvHorizontalMovieListMessage.visibility =
                                     View.VISIBLE
                                 latestMovieList.tvHorizontalMovieListMessage.text =
@@ -134,10 +137,22 @@ class MainActivity : AppCompatActivity() {
                     when (data) {
                         is Resource.Success -> {
                             getGenresMembers(data.data as ArrayList<Genre>)
+                            binding.apply {
+                                if (data.data.isNotEmpty()) {
+                                    tvGenreListMessage.visibility = View.GONE
+                                } else {
+                                    tvGenreListMessage.visibility = View.VISIBLE
+                                    tvGenreListMessage.text = "No genre data available"
+                                }
+                            }
                         }
                         else -> {
-                            Toast.makeText(this@MainActivity, "Genre Gagal", Toast.LENGTH_SHORT)
-                                .show()
+                            binding.apply {
+                                smGenreDiscoverMovie.startShimmer()
+                                smGenreDiscoverMovie.visibility = View.VISIBLE
+                                rlGenreDiscoverMovieListParentWrapper.visibility = View.GONE
+                                setGenreList(arrayListOf())
+                            }
                         }
                     }
                 }
@@ -160,6 +175,24 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            isShowingRefreshModal.observe(this@MainActivity) {
+                if (it) {
+                    handler.removeCallbacks(runnable)
+                    refreshModal.showRefreshModal(
+                        type = RefreshModal.TYPE_FAILED,
+                        message = "Failed to contact the server",
+                        onRefreshClicked = {
+                            dismissRefreshModal()
+                            getDetailMovieTryAgain()
+                        },
+                        onCloseClicked = { dismissRefreshModal() }
+                    )
+                } else {
+                    refreshModal.dismiss()
+                    handler.postDelayed(runnable, CAROUSEL_DELAY)
+                }
+            }
+
             isShowingDetailMovie.observe(this@MainActivity) {
                 if (it) {
                     handler.removeCallbacks(runnable)
@@ -178,7 +211,6 @@ class MainActivity : AppCompatActivity() {
                     detailMovieModal.dismiss()
                     handler.postDelayed(runnable, CAROUSEL_DELAY)
                 }
-                movieVideo = null
             }
         }
 
@@ -338,5 +370,6 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         detailMovieModal.dismiss()
         loadingModal.dismiss()
+        refreshModal.dismiss()
     }
 }

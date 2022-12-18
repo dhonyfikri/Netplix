@@ -23,6 +23,7 @@ class ResponseModal : MyModal() {
         message: String?,
         callback: (() -> Unit)? = null
     ) {
+        dismiss()
         modal = Dialog(context)
         modal?.setContentView(R.layout.response_modal)
         val ivIllustration = modal?.findViewById<ImageView>(R.id.iv_illustration)

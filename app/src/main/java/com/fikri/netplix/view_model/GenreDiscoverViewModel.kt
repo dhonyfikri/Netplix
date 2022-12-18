@@ -22,11 +22,12 @@ class GenreDiscoverViewModel(
 ) : ViewModel() {
     private val _isShowingDetailMovie = MutableLiveData<Boolean>()
     val isShowingDetailMovie: LiveData<Boolean> = _isShowingDetailMovie
-    private val _isShowingShimmer = MutableLiveData(false)
-    val isShowingShimmer: LiveData<Boolean> = _isShowingShimmer
     private val _isShowingLoadingModal = MutableLiveData<Boolean>()
     val isShowingLoadingModal: LiveData<Boolean> = _isShowingLoadingModal
+    private val _isShowingRefreshModal = MutableLiveData<Boolean>()
+    val isShowingRefreshModal: LiveData<Boolean> = _isShowingRefreshModal
 
+    private var selectedMovieId: Int? = null
     var selectedGenre: Genre? = null
     lateinit var movieDetail: MovieDetail
     var movieVideo: MovieVideo? = null
@@ -36,6 +37,9 @@ class GenreDiscoverViewModel(
             .cachedIn(viewModelScope)
 
     fun getDetailMovie(movieId: Int) {
+        selectedMovieId = movieId
+        movieVideo = null
+
         _isShowingLoadingModal.value = true
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -48,13 +52,23 @@ class GenreDiscoverViewModel(
                         movieVideo = movieVideoResult.data[0]
                     }
                     _isShowingDetailMovie.postValue(true)
+                } else {
+                    _isShowingRefreshModal.postValue(true)
                 }
                 _isShowingLoadingModal.postValue(false)
             }
         }
     }
 
+    fun getDetailMovieTryAgain() {
+        getDetailMovie(selectedMovieId ?: 0)
+    }
+
     fun dismissDetailMovie() {
         _isShowingDetailMovie.value = false
+    }
+
+    fun dismissRefreshModal() {
+        _isShowingRefreshModal.value = false
     }
 }

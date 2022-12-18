@@ -14,10 +14,11 @@ import com.fikri.netplix.core.ui.adapter.EndlessMovieListAdapter
 import com.fikri.netplix.core.ui.adapter.LoadingStateAdapter
 import com.fikri.netplix.core.ui.modal.DetailMovieModal
 import com.fikri.netplix.core.ui.modal.LoadingModal
+import com.fikri.netplix.core.ui.modal.RefreshModal
 import com.fikri.netplix.core.utils.CombinedLoadState.decideOnState
 import com.fikri.netplix.databinding.ActivityGenreDiscoverBinding
 import com.fikri.netplix.view_model.GenreDiscoverViewModel
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GenreDiscoverActivity : AppCompatActivity() {
 
@@ -26,10 +27,11 @@ class GenreDiscoverActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityGenreDiscoverBinding
-    private val viewModel: GenreDiscoverViewModel by inject()
+    private val viewModel: GenreDiscoverViewModel by viewModel()
     private var adapter = EndlessMovieListAdapter(this)
     private val detailMovieModal = DetailMovieModal(this)
     private val loadingModal = LoadingModal(this)
+    private val refreshModal = RefreshModal(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,10 +43,6 @@ class GenreDiscoverActivity : AppCompatActivity() {
     }
 
     private fun setupData() {
-//        binding.smEndlessGenreDiscoverMovie.stopShimmer()
-//        binding.smEndlessGenreDiscoverMovie.visibility = View.GONE
-//        binding.rvMovie.visibility = View.VISIBLE
-
         binding.header.btnLeftHeader.setImageDrawable(
             ContextCompat.getDrawable(
                 this,
@@ -59,15 +57,31 @@ class GenreDiscoverActivity : AppCompatActivity() {
             binding.header.tvTitle.text = "Discover by ${receivedGenre.name}"
         }
 
-        viewModel.isShowingLoadingModal.observe(this@GenreDiscoverActivity) {
-            if (it) {
-                loadingModal.showLoadingModal(message = "Loading")
-            } else {
-                loadingModal.dismiss()
-            }
-        }
-
         viewModel.apply {
+            isShowingLoadingModal.observe(this@GenreDiscoverActivity) {
+                if (it) {
+                    loadingModal.showLoadingModal(message = "Loading")
+                } else {
+                    loadingModal.dismiss()
+                }
+            }
+
+            isShowingRefreshModal.observe(this@GenreDiscoverActivity) {
+                if (it) {
+                    refreshModal.showRefreshModal(
+                        type = RefreshModal.TYPE_FAILED,
+                        message = "Failed to contact the server",
+                        onRefreshClicked = {
+                            dismissRefreshModal()
+                            getDetailMovieTryAgain()
+                        },
+                        onCloseClicked = { dismissRefreshModal() }
+                    )
+                } else {
+                    refreshModal.dismiss()
+                }
+            }
+
             isShowingDetailMovie.observe(this@GenreDiscoverActivity) {
                 if (it) {
                     detailMovieModal.showDetailMovieModal(
@@ -84,7 +98,6 @@ class GenreDiscoverActivity : AppCompatActivity() {
                 } else {
                     detailMovieModal.dismiss()
                 }
-                movieVideo = null
             }
         }
 
@@ -181,5 +194,6 @@ class GenreDiscoverActivity : AppCompatActivity() {
         super.onDestroy()
         detailMovieModal.dismiss()
         loadingModal.dismiss()
+        refreshModal.dismiss()
     }
 }

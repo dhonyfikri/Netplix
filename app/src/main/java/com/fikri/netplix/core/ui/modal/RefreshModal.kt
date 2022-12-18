@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.fikri.netplix.R
 
-class RefreshModal : MyModal() {
+class RefreshModal(private val context: Context) : MyModal() {
     companion object {
         const val TYPE_GENERAL = "general"
         const val TYPE_ERROR = "error"
@@ -17,12 +17,12 @@ class RefreshModal : MyModal() {
     }
 
     fun showRefreshModal(
-        context: Context,
         type: String? = TYPE_GENERAL,
         message: String?,
         onRefreshClicked: (() -> Unit)? = null,
         onCloseClicked: (() -> Unit)? = null
     ) {
+        dismiss()
         modal = Dialog(context)
         modal?.setContentView(R.layout.refresh_question_modal)
         val ivIllustration = modal?.findViewById<ImageView>(R.id.iv_illustration)

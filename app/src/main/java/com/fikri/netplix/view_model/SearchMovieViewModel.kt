@@ -19,7 +19,7 @@ class SearchMovieViewModel(
     private val movieUseCase: MovieUseCase,
     private val videoUseCase: VideoUseCase
 ) : ViewModel() {
-    private val _listMovieSearchResult = MutableLiveData<ArrayList<Movie>>()
+    private val _listMovieSearchResult = MutableLiveData<ArrayList<Movie>>(arrayListOf())
     val listMovieSearchResult: LiveData<ArrayList<Movie>> = _listMovieSearchResult
     private val _isShowingDetailMovie = MutableLiveData<Boolean>()
     val isShowingDetailMovie: LiveData<Boolean> = _isShowingDetailMovie
@@ -27,7 +27,10 @@ class SearchMovieViewModel(
     val isShowingShimmer: LiveData<Boolean> = _isShowingShimmer
     private val _isShowingLoadingModal = MutableLiveData<Boolean>()
     val isShowingLoadingModal: LiveData<Boolean> = _isShowingLoadingModal
+    private val _isShowingRefreshModal = MutableLiveData<Boolean>()
+    val isShowingRefreshModal: LiveData<Boolean> = _isShowingRefreshModal
 
+    private var selectedMovieId: Int? = null
     lateinit var movieDetail: MovieDetail
     var movieVideo: MovieVideo? = null
 
@@ -37,14 +40,17 @@ class SearchMovieViewModel(
             withContext(Dispatchers.IO) {
                 val result = movieUseCase.searchMovie(Token.TMDB_TOKEN_V3, query)
                 if (result is Resource.Success) {
+                    _isShowingShimmer.postValue(false)
                     _listMovieSearchResult.postValue(result.data as ArrayList<Movie>)
                 }
-                _isShowingShimmer.postValue(false)
             }
         }
     }
 
     fun getDetailMovie(movieId: Int) {
+        selectedMovieId = movieId
+        movieVideo = null
+
         _isShowingLoadingModal.value = true
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -57,13 +63,23 @@ class SearchMovieViewModel(
                         movieVideo = movieVideoResult.data[0]
                     }
                     _isShowingDetailMovie.postValue(true)
+                } else {
+                    _isShowingRefreshModal.postValue(true)
                 }
                 _isShowingLoadingModal.postValue(false)
             }
         }
     }
 
+    fun getDetailMovieTryAgain() {
+        getDetailMovie(selectedMovieId ?: 0)
+    }
+
     fun dismissDetailMovie() {
         _isShowingDetailMovie.value = false
+    }
+
+    fun dismissRefreshModal() {
+        _isShowingRefreshModal.value = false
     }
 }
