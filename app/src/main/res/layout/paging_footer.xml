@@ -35,7 +35,7 @@
         android:background="@drawable/rounded_corner_primary"
         android:includeFontPadding="false"
         android:paddingVertical="0dp"
-        android:text="Try Again"
+        android:text="@string/try_again"
         android:textAllCaps="false"
         android:textSize="14sp"
         tools:ignore="UnusedAttribute" />

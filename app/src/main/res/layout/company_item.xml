@@ -5,8 +5,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    app:cardElevation="4dp"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,8 +17,9 @@
             android:id="@+id/iv_logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="centerInside"
             android:background="@color/tertiary"
+            android:contentDescription="@string/company_logo"
+            android:scaleType="centerInside"
             tools:src="@tools:sample/avatars" />
 
         <RelativeLayout
@@ -37,6 +38,7 @@
                 android:textAlignment="center"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="10sp"
+                tools:ignore="SmallSp"
                 tools:text="Soraya Films" />
 
         </RelativeLayout>

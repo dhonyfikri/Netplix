@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fikri.netplix.R
 import com.fikri.netplix.core.domain.model.Genre
 import com.fikri.netplix.core.domain.model.Movie
 import com.fikri.netplix.databinding.HorizontalMovieListBinding
@@ -51,7 +52,7 @@ class GenreDiscoverAdapter(private val context: Context, private val listGenre: 
                     tvHorizontalMovieListMessage.visibility =
                         View.VISIBLE
                     tvHorizontalMovieListMessage.text =
-                        "No data available"
+                        context.getString(R.string.no_data_available)
                 }
 
                 btnMoreMovie.setOnClickListener {

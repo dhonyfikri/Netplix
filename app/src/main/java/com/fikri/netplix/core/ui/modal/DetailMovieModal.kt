@@ -84,8 +84,12 @@ class DetailMovieModal(private val context: Context) :
             }
 
             tvTitle?.text = it.title
-            tvDuration?.text = "${it.runtime.toString()} Minutes"
-            tvRating?.text = "${it.voteAverage} ( ${it.voteCount}  of vote )"
+            tvDuration?.text = context.getString(R.string.movie_duration, it.runtime.toString())
+            tvRating?.text = context.getString(
+                R.string.movie_rating,
+                it.voteAverage.toString(),
+                it.voteCount.toString()
+            )
             tvTagline?.text = it.tagline
             tvOverview?.text = it.overview
 
@@ -100,7 +104,7 @@ class DetailMovieModal(private val context: Context) :
             } else {
                 rvCompanies?.visibility = View.GONE
                 tvCompaniesListMessage?.visibility = View.VISIBLE
-                tvCompaniesListMessage?.text = "No company data"
+                tvCompaniesListMessage?.text = context.getString(R.string.no_company_data)
             }
 
             btnWebsite?.setOnClickListener { _ ->

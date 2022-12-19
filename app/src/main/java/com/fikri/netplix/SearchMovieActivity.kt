@@ -67,13 +67,13 @@ class SearchMovieActivity : AppCompatActivity() {
                 } else {
                     binding.rvMovieSearchList.visibility = View.GONE
                     binding.tvMovieSearchListMessage.visibility = View.VISIBLE
-                    binding.tvMovieSearchListMessage.text = "No data available"
+                    binding.tvMovieSearchListMessage.text = getString(R.string.no_data_available)
                 }
             }
 
             isShowingLoadingModal.observe(this@SearchMovieActivity) {
                 if (it) {
-                    loadingModal.showLoadingModal(message = "Loading")
+                    loadingModal.showLoadingModal(message = getString(R.string.loading))
                 } else {
                     loadingModal.dismiss()
                 }
@@ -83,7 +83,7 @@ class SearchMovieActivity : AppCompatActivity() {
                 if (it) {
                     refreshModal.showRefreshModal(
                         type = RefreshModal.TYPE_FAILED,
-                        message = "Failed to contact the server",
+                        message = getString(R.string.failed_to_contact_the_server),
                         onRefreshClicked = {
                             dismissRefreshModal()
                             getDetailMovieTryAgain()

@@ -59,7 +59,7 @@
             android:includeFontPadding="false"
             android:paddingHorizontal="12dp"
             android:paddingVertical="0dp"
-            android:text="See More"
+            android:text="@string/see_more"
             android:textAllCaps="false"
             android:textSize="12sp" />
 

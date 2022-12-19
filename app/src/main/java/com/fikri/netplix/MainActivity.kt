@@ -55,11 +55,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupData() {
         handler = Handler(Looper.myLooper()!!)
-        binding.header.tvTitle.text = "Netplix"
+        binding.header.tvTitle.text = getString(R.string.app_name)
         binding.header.ivSearchIcon.visibility = View.VISIBLE
 
         binding.latestMovieList.apply {
-            tvListTitle.text = "Latest"
+            tvListTitle.text = getString(R.string.latest)
             btnMoreMovie.visibility = View.GONE
             rvHorizontalMovieList.setHasFixedSize(true)
             rvHorizontalMovieList.layoutManager =
@@ -86,7 +86,8 @@ class MainActivity : AppCompatActivity() {
                                 tvFeaturedMovieListMessage.visibility = View.GONE
                             } else {
                                 tvFeaturedMovieListMessage.visibility = View.VISIBLE
-                                tvFeaturedMovieListMessage.text = "No data available"
+                                tvFeaturedMovieListMessage.text =
+                                    getString(R.string.no_data_available)
                             }
                         }
                     }
@@ -117,7 +118,7 @@ class MainActivity : AppCompatActivity() {
                                 latestMovieList.tvHorizontalMovieListMessage.visibility =
                                     View.VISIBLE
                                 latestMovieList.tvHorizontalMovieListMessage.text =
-                                    "No data available"
+                                    getString(R.string.no_data_available)
                             }
                         }
                     }
@@ -142,7 +143,8 @@ class MainActivity : AppCompatActivity() {
                                     tvGenreListMessage.visibility = View.GONE
                                 } else {
                                     tvGenreListMessage.visibility = View.VISIBLE
-                                    tvGenreListMessage.text = "No genre data available"
+                                    tvGenreListMessage.text =
+                                        getString(R.string.no_genre_data_available)
                                 }
                             }
                         }
@@ -257,7 +259,7 @@ class MainActivity : AppCompatActivity() {
         setCarouselIndicator(limitedMovieList.size)
 
         featuredMovieListAdapter =
-            FeaturedMovieListAdapter(limitedMovieList)
+            FeaturedMovieListAdapter(this, limitedMovieList)
 
         binding.vp2FeaturedMovieList.apply {
             clipChildren = false

@@ -54,7 +54,7 @@ class GenreDiscoverActivity : AppCompatActivity() {
         if (intent.getParcelableExtra<Genre>(EXTRA_SELECTED_GENRE) != null) {
             val receivedGenre = intent.getParcelableExtra<Genre>(EXTRA_SELECTED_GENRE) as Genre
             viewModel.selectedGenre = receivedGenre
-            binding.header.tvTitle.text = "Discover by ${receivedGenre.name}"
+            binding.header.tvTitle.text = getString(R.string.discover_by, receivedGenre.name)
         }
 
         viewModel.apply {
@@ -149,7 +149,7 @@ class GenreDiscoverActivity : AppCompatActivity() {
                             smEndlessGenreDiscoverMovie.stopShimmer()
                             smEndlessGenreDiscoverMovie.visibility = View.GONE
                             tvEndlessMovieListMessage.visibility = View.VISIBLE
-                            tvEndlessMovieListMessage.text = "No data available"
+                            tvEndlessMovieListMessage.text = getString(R.string.no_data_available)
                             rvMovie.visibility = View.GONE
                         }
                     }
@@ -159,7 +159,8 @@ class GenreDiscoverActivity : AppCompatActivity() {
                         smEndlessGenreDiscoverMovie.stopShimmer()
                         smEndlessGenreDiscoverMovie.visibility = View.GONE
                         tvEndlessMovieListMessage.visibility = View.VISIBLE
-                        tvEndlessMovieListMessage.text = "Failed to contact the server"
+                        tvEndlessMovieListMessage.text =
+                            getString(R.string.failed_to_contact_the_server)
                         rvMovie.visibility = View.GONE
                     }
                 },

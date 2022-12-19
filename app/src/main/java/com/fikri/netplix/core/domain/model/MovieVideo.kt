@@ -1,9 +1,5 @@
 package com.fikri.netplix.core.domain.model
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-
-@Parcelize
 data class MovieVideo(
     var iso6391: String? = null,
     var iso31661: String? = null,
@@ -15,4 +11,4 @@ data class MovieVideo(
     var official: Boolean? = null,
     var publishedAt: String? = null,
     var id: String? = null
-) : Parcelable
+)

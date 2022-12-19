@@ -57,8 +57,9 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/poppins_medium"
                     android:includeFontPadding="false"
-                    android:text="Refresh"
-                    android:textAllCaps="false" />
+                    android:text="@string/refresh"
+                    android:textAllCaps="false"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:id="@+id/btn_close"
@@ -68,8 +69,9 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/poppins_medium"
                     android:includeFontPadding="false"
-                    android:text="Close"
-                    android:textAllCaps="false" />
+                    android:text="@string/close"
+                    android:textAllCaps="false"
+                    tools:ignore="ButtonStyle" />
 
             </LinearLayout>
 

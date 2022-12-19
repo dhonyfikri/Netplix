@@ -1,5 +1,6 @@
 package com.fikri.netplix.core.ui.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import com.fikri.netplix.core.domain.model.Movie
 import com.fikri.netplix.databinding.FeaturedMovieItemBinding
 
 class FeaturedMovieListAdapter(
+    private val context: Context,
     private val listMovie: ArrayList<Movie>
 ) :
     RecyclerView.Adapter<FeaturedMovieListAdapter.ListViewHolder>() {
@@ -34,8 +36,12 @@ class FeaturedMovieListAdapter(
         holder.binding.apply {
             tvMovieTitle.text = movie.title
             tvOverview.text = movie.overview
-            tvReleaseDate.text = "Release on ${movie.releaseDate}"
-            tvRating.text = "${movie.voteAverage} ( ${movie.voteCount} of vote )"
+            tvReleaseDate.text = context.getString(R.string.movie_release_date, movie.releaseDate)
+            tvRating.text = context.getString(
+                R.string.movie_rating,
+                movie.voteAverage.toString(),
+                movie.voteCount.toString()
+            )
         }
 
         holder.binding.cvMovieItem.setOnClickListener {

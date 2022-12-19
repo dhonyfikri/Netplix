@@ -48,7 +48,7 @@
                         android:fontFamily="@font/poppins_medium"
                         android:includeFontPadding="false"
                         android:maxLines="1"
-                        android:text="Trailer and Detail"
+                        android:text="@string/trailer_and_detail"
                         android:textColor="?android:textColorPrimary"
                         android:textSize="20sp" />
 
@@ -59,6 +59,7 @@
                         android:layout_height="32dp"
                         android:layout_alignParentEnd="true"
                         android:background="@drawable/rounded_corner_primary"
+                        android:contentDescription="@string/close_detail_movie_modal"
                         android:src="@drawable/ic_close" />
 
                 </RelativeLayout>
@@ -72,13 +73,15 @@
                         android:id="@+id/yt_trailer"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:layout_marginBottom="12dp" />
+                        android:layout_marginBottom="12dp"
+                        android:contentDescription="@string/trailer_video" />
 
                     <ImageView
                         android:id="@+id/iv_backdrop"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:background="@color/black"
+                        android:contentDescription="@string/movie_backdrop"
                         android:scaleType="centerCrop"
                         tools:src="@tools:sample/avatars" />
 
@@ -101,6 +104,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="150dp"
                                 android:background="@color/tertiary"
+                                android:contentDescription="@string/movie_poster"
                                 android:scaleType="centerCrop"
                                 android:transitionName="poster_image_view"
                                 tools:src="@tools:sample/avatars" />
@@ -133,7 +137,6 @@
                                 android:ellipsize="end"
                                 android:fontFamily="@font/poppins"
                                 android:includeFontPadding="false"
-                                android:text="0 Minutes"
                                 android:textColor="?android:textColorSecondary"
                                 android:textSize="12sp"
                                 tools:text="120 Minutes" />
@@ -142,12 +145,14 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                tools:ignore="UseCompoundDrawables">
 
                                 <ImageView
                                     android:layout_width="24dp"
                                     android:layout_height="24dp"
-                                    android:src="@drawable/ic_star" />
+                                    android:src="@drawable/ic_star"
+                                    tools:ignore="ContentDescription" />
 
                                 <TextView
                                     android:id="@+id/tv_rating"
@@ -171,13 +176,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/ic_tag"
-                            app:tint="@color/secondary_color" />
+                            app:tint="@color/secondary_color"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:id="@+id/tv_tagline"
@@ -185,7 +192,6 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/poppins"
-                            android:text="-"
                             android:textColor="?android:textColorPrimary"
                             android:textSize="14sp"
                             tools:text="The world needed a hero. It got Black Adam." />
@@ -203,7 +209,7 @@
                         android:focusable="true"
                         android:fontFamily="@font/poppins_medium"
                         android:paddingVertical="0dp"
-                        android:text="Official Website"
+                        android:text="@string/official_website"
                         android:textAllCaps="false"
                         android:textSize="12sp"
                         tools:ignore="UnusedAttribute" />
@@ -215,7 +221,7 @@
                         android:fontFamily="@font/poppins_semibold"
                         android:includeFontPadding="false"
                         android:scrollbarSize="120sp"
-                        android:text="Film Genre Coverage"
+                        android:text="@string/film_genre_coverage"
                         android:textColor="?android:textColorPrimary"
                         android:textSize="18sp" />
 
@@ -236,7 +242,7 @@
                         android:fontFamily="@font/poppins_semibold"
                         android:includeFontPadding="false"
                         android:scrollbarSize="120sp"
-                        android:text="Production Companies"
+                        android:text="@string/production_companies"
                         android:textColor="?android:textColorPrimary"
                         android:textSize="18sp" />
 
@@ -269,7 +275,7 @@
                         android:fontFamily="@font/poppins_semibold"
                         android:includeFontPadding="false"
                         android:scrollbarSize="120sp"
-                        android:text="Overview"
+                        android:text="@string/overview"
                         android:textColor="?android:textColorPrimary"
                         android:textSize="18sp" />
 

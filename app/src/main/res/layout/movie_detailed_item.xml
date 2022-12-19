@@ -23,6 +23,7 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:background="@color/tertiary"
+            android:contentDescription="@string/movie_poster"
             android:scaleType="centerCrop"
             tools:src="@tools:sample/avatars" />
 
@@ -54,6 +55,7 @@
                 android:maxLines="4"
                 android:textColor="?android:textColorSecondary"
                 android:textSize="10sp"
+                tools:ignore="SmallSp"
                 tools:text="Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods—and imprisoned just as quickly—Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world." />
 
             <LinearLayout
@@ -62,7 +64,8 @@
                 android:layout_marginTop="4dp"
                 android:layout_weight="1"
                 android:gravity="bottom"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="NestedWeights">
 
                 <TextView
                     android:id="@+id/tv_release_date"
@@ -73,18 +76,21 @@
                     android:includeFontPadding="false"
                     android:textColor="?android:textColorSecondary"
                     android:textSize="10sp"
+                    tools:ignore="SmallSp"
                     tools:text="Release on 2022-10-19" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_star" />
+                        android:src="@drawable/ic_star"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_rating"
@@ -96,6 +102,7 @@
                         android:includeFontPadding="false"
                         android:textColor="?android:textColorSecondary"
                         android:textSize="10sp"
+                        tools:ignore="SmallSp"
                         tools:text="8.5 ( 2296 of vote )" />
 
                 </LinearLayout>

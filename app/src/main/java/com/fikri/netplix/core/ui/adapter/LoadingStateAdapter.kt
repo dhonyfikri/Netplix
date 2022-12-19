@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.fikri.netplix.R
 import com.fikri.netplix.databinding.PagingFooterBinding
 
 class LoadingStateAdapter(private val context: Context, private val retry: () -> Unit) :
@@ -23,7 +24,7 @@ class LoadingStateAdapter(private val context: Context, private val retry: () ->
         fun bind(context: Context, loadState: LoadState) {
             binding.apply {
                 if (loadState is LoadState.Error) {
-                    tvErrorMsg.text = "Time Out"
+                    tvErrorMsg.text = context.getString(R.string.time_out)
                 }
                 pbLoading.isVisible = loadState is LoadState.Loading
                 btnRefresh.isVisible = loadState is LoadState.Error
