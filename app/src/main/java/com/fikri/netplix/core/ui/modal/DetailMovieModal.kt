@@ -17,6 +17,7 @@ import com.fikri.netplix.core.domain.model.MovieDetail
 import com.fikri.netplix.core.domain.model.MovieVideo
 import com.fikri.netplix.core.ui.adapter.CompanyOfMovieListAdapter
 import com.fikri.netplix.core.ui.adapter.GenreOfMovieListAdapter
+import com.fikri.netplix.core.utils.GlideUtils
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -72,14 +73,16 @@ class DetailMovieModal(private val context: Context) :
             ivBackdrop?.let { view ->
                 Glide.with(context)
                     .load(Server.TMDB_IMAGE_BASE_URL + it.backdropPath)
-                    .error(R.drawable.default_image)
+                    .thumbnail(GlideUtils.thumbnailQuality)
+                    .apply(GlideUtils.requestOptions)
                     .into(view)
             }
 
             ivPoster?.let { view ->
                 Glide.with(context)
                     .load(Server.TMDB_IMAGE_BASE_URL + it.posterPath)
-                    .error(R.drawable.default_image)
+                    .thumbnail(GlideUtils.thumbnailQuality)
+                    .apply(GlideUtils.requestOptions)
                     .into(view)
             }
 

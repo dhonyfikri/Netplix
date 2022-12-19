@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.fikri.netplix.R
 import com.fikri.netplix.core.data.source.remote.network.Server
 import com.fikri.netplix.core.domain.model.Movie
+import com.fikri.netplix.core.utils.GlideUtils
 import com.fikri.netplix.databinding.FeaturedMovieItemBinding
 
 class FeaturedMovieListAdapter(
@@ -31,7 +32,8 @@ class FeaturedMovieListAdapter(
 
         Glide.with(holder.itemView.context)
             .load(Server.TMDB_IMAGE_BASE_URL + movie.posterPath)
-            .error(R.drawable.default_image)
+            .thumbnail(GlideUtils.thumbnailQuality)
+            .apply(GlideUtils.requestOptions)
             .into(holder.binding.ivPoster)
         holder.binding.apply {
             tvMovieTitle.text = movie.title

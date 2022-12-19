@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.fikri.netplix.R
 import com.fikri.netplix.core.data.source.remote.network.Server
 import com.fikri.netplix.core.domain.model.ProductionCompanies
+import com.fikri.netplix.core.utils.GlideUtils
 import com.fikri.netplix.databinding.CompanyItemBinding
 
 class CompanyOfMovieListAdapter(private val listCompanyOfMovie: ArrayList<ProductionCompanies>) :
@@ -26,7 +26,8 @@ class CompanyOfMovieListAdapter(private val listCompanyOfMovie: ArrayList<Produc
         holder.binding.apply {
             Glide.with(holder.itemView.context)
                 .load(Server.TMDB_IMAGE_BASE_URL + company.logoPath)
-                .error(R.drawable.default_image)
+                .thumbnail(GlideUtils.thumbnailQuality)
+                .apply(GlideUtils.requestOptions)
                 .into(ivLogo)
             tvCompanyName.text = company.name
         }
