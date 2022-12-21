@@ -220,6 +220,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
+        binding.header.btnLeftHeader.setOnClickListener {
+            startActivity(Intent(this, FreeDrawingActivity::class.java))
+        }
+
         binding.header.btnRightHeader.setOnClickListener {
             val moveToSearch = Intent(this@MainActivity, SearchMovieActivity::class.java)
             startActivity(
